@@ -1,0 +1,8 @@
+# Fins de ligne normalisées (LF) pour tous les fichiers texte du projet.
+* text=auto eol=lf
+*.png binary
+*.jpg binary
+*.ogg binary
+*.wav binary
+*.ttf binary
+*.otf binary

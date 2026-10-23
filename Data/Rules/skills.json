@@ -1,0 +1,49 @@
+{
+  "source": "Livre de règles v0.2, §4",
+  "skills": [
+    { "key": "pilotage", "name": "Pilotage", "characteristic": "coo", "trainingRequired": true, "perSpecialty": true, "untrainedAllowed": true, "domain": "espace", "specialties": ["petits_engins_remorqueurs", "navettes_atterrisseurs", "aeronefs_atmospheriques", "vaisseaux_fusion"], "notes": "Vaisseaux à fusion : impossible sans formation." },
+    { "key": "conduite", "name": "Conduite", "characteristic": "coo", "trainingRequired": false, "perSpecialty": false, "untrainedAllowed": true, "domain": "espace" },
+    { "key": "mecanique_orbitale", "name": "Mécanique orbitale", "characteristic": "int", "trainingRequired": true, "perSpecialty": false, "untrainedAllowed": true, "domain": "espace" },
+    { "key": "manoeuvre_apesanteur", "name": "Manœuvre en apesanteur", "characteristic": "ada", "trainingRequired": false, "perSpecialty": false, "untrainedAllowed": true, "domain": "espace" },
+    { "key": "sortie_extravehiculaire", "name": "Sortie extravéhiculaire", "characteristic": "ada", "trainingRequired": false, "perSpecialty": false, "untrainedAllowed": true, "domain": "espace" },
+    { "key": "operations_de_bord", "name": "Opérations de bord", "characteristic": "int", "trainingRequired": false, "perSpecialty": false, "untrainedAllowed": true, "domain": "espace" },
+    { "key": "armement_de_bord", "name": "Armement de bord", "characteristic": "per", "trainingRequired": true, "perSpecialty": false, "untrainedAllowed": true, "domain": "espace" },
+
+    { "key": "mecanique", "name": "Mécanique", "characteristic": "int", "trainingRequired": false, "perSpecialty": false, "untrainedAllowed": true, "domain": "technique" },
+    { "key": "electronique", "name": "Électronique", "characteristic": "int", "trainingRequired": false, "perSpecialty": false, "untrainedAllowed": true, "domain": "technique" },
+    { "key": "informatique", "name": "Informatique", "characteristic": "int", "trainingRequired": false, "perSpecialty": false, "untrainedAllowed": true, "domain": "technique" },
+    { "key": "systemes_de_survie", "name": "Systèmes de survie", "characteristic": "int", "trainingRequired": false, "perSpecialty": false, "untrainedAllowed": true, "domain": "technique" },
+    { "key": "reacteurs_propulsion", "name": "Réacteurs et propulsion", "characteristic": "int", "trainingRequired": true, "perSpecialty": true, "untrainedAllowed": true, "domain": "technique", "specialties": ["microreacteurs_fission", "nucleaire_thermique", "fusion_pulsee", "propulsion_plasma"] },
+    { "key": "robotique_telepilotage", "name": "Robotique et télépilotage", "characteristic": "coo", "trainingRequired": false, "perSpecialty": false, "untrainedAllowed": true, "domain": "technique" },
+    { "key": "explosifs", "name": "Explosifs", "characteristic": "int", "trainingRequired": true, "perSpecialty": false, "untrainedAllowed": true, "domain": "technique" },
+
+    { "key": "premiers_secours", "name": "Premiers secours", "characteristic": "int", "trainingRequired": false, "perSpecialty": false, "untrainedAllowed": true, "domain": "sciences" },
+    { "key": "medecine", "name": "Médecine", "characteristic": "int", "trainingRequired": true, "perSpecialty": true, "untrainedAllowed": true, "domain": "sciences", "specialties": ["diagnostic_medecine_generale", "chirurgie", "medecine_espace_radiations"], "notes": "Chirurgie : impossible sans formation." },
+    { "key": "sciences_de_la_vie", "name": "Sciences de la vie", "characteristic": "int", "trainingRequired": true, "perSpecialty": true, "untrainedAllowed": true, "domain": "sciences", "specialties": ["biologie", "ecologie_habitats", "exobiologie"] },
+    { "key": "sciences_physiques", "name": "Sciences physiques", "characteristic": "int", "trainingRequired": true, "perSpecialty": true, "untrainedAllowed": true, "domain": "sciences", "specialties": ["physique", "chimie", "planetologie", "astronomie"] },
+
+    { "key": "armes_de_poing", "name": "Armes de poing", "characteristic": "coo", "trainingRequired": false, "perSpecialty": false, "untrainedAllowed": true, "domain": "combat" },
+    { "key": "armes_d_epaule", "name": "Armes d'épaule", "characteristic": "coo", "trainingRequired": false, "perSpecialty": false, "untrainedAllowed": true, "domain": "combat" },
+    { "key": "corps_a_corps", "name": "Corps-à-corps", "characteristic": "for", "trainingRequired": false, "perSpecialty": false, "untrainedAllowed": true, "domain": "combat", "notes": "Lutte en apesanteur : moyenne de FOR et ADA." },
+    { "key": "esquive", "name": "Esquive", "characteristic": "ref", "trainingRequired": false, "perSpecialty": false, "untrainedAllowed": true, "domain": "combat" },
+
+    { "key": "athletisme", "name": "Athlétisme", "characteristic": "for", "trainingRequired": false, "perSpecialty": false, "untrainedAllowed": true, "domain": "corps" },
+    { "key": "discretion", "name": "Discrétion", "characteristic": "coo", "trainingRequired": false, "perSpecialty": false, "untrainedAllowed": true, "domain": "corps" },
+    { "key": "vigilance", "name": "Vigilance", "characteristic": "per", "trainingRequired": false, "perSpecialty": false, "untrainedAllowed": true, "domain": "corps" },
+    { "key": "fouille", "name": "Fouille", "characteristic": "per", "trainingRequired": false, "perSpecialty": false, "untrainedAllowed": true, "domain": "corps" },
+    { "key": "survie", "name": "Survie", "characteristic": "int", "trainingRequired": false, "perSpecialty": false, "untrainedAllowed": true, "domain": "corps" },
+
+    { "key": "persuasion", "name": "Persuasion", "characteristic": "pre", "trainingRequired": false, "perSpecialty": false, "untrainedAllowed": true, "domain": "relations" },
+    { "key": "negociation", "name": "Négociation", "characteristic": "pre", "trainingRequired": false, "perSpecialty": false, "untrainedAllowed": true, "domain": "relations" },
+    { "key": "tromperie", "name": "Tromperie", "characteristic": "pre", "trainingRequired": false, "perSpecialty": false, "untrainedAllowed": true, "domain": "relations" },
+    { "key": "intimidation", "name": "Intimidation", "characteristic": "vol", "trainingRequired": false, "perSpecialty": false, "untrainedAllowed": true, "domain": "relations" },
+    { "key": "commandement", "name": "Commandement", "characteristic": "pre", "trainingRequired": false, "perSpecialty": false, "untrainedAllowed": true, "domain": "relations" },
+    { "key": "psychologie", "name": "Psychologie", "characteristic": "per", "trainingRequired": false, "perSpecialty": false, "untrainedAllowed": true, "domain": "relations" },
+    { "key": "enquete", "name": "Enquête", "characteristic": "int", "trainingRequired": false, "perSpecialty": false, "untrainedAllowed": true, "domain": "relations" },
+
+    { "key": "bureaucratie_droit", "name": "Bureaucratie et droit", "characteristic": "int", "trainingRequired": false, "perSpecialty": false, "untrainedAllowed": true, "domain": "savoirs" },
+    { "key": "commerce", "name": "Commerce", "characteristic": "int", "trainingRequired": false, "perSpecialty": false, "untrainedAllowed": true, "domain": "savoirs" },
+    { "key": "culture", "name": "Culture", "characteristic": "int", "trainingRequired": false, "perSpecialty": false, "untrainedAllowed": true, "domain": "savoirs", "notes": "Champ libre de spécificité (origine, bloc, communauté…)." },
+    { "key": "langues", "name": "Langues", "characteristic": "int", "trainingRequired": false, "perSpecialty": true, "untrainedAllowed": true, "domain": "savoirs", "notes": "Une compétence par langue ; le parler de quart compte comme une langue." }
+  ]
+}

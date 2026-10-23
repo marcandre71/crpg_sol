@@ -32,10 +32,14 @@ Personnages : le joueur (Sauveteur du vide de la Mutuelle) ; Lina (Mutuelle, ble
 
 ## 3. Stack
 
-- **Moteur :** Godot 4.x ⚠ version exacte à fixer (proposition : la dernière 4.x stable installée chez Marc, notée dans `project.godot`).
+- **Moteur :** Godot **4.7.2 stable** (décision de Marc, 23/10/2026), rendu Compatibilité (suffisant pour une interface terminal).
 - **Langage :** GDScript uniquement ⚠. Le README autorise le C#, mais il impose la version .NET de Godot et complique le mélange des deux langages ; on propose de s'en tenir à GDScript tant que le prototype est petit.
 - **Données :** JSON pour tout ce qui est écrit par l'agent Narrative (dialogues, PNJ, objets), ressources `.tres` seulement pour ce qui est réglé dans l'éditeur (thèmes UI, scènes).
-- **Tests :** GUT (Godot Unit Test) ⚠ pour le moteur de règles, qui doit être testé sans lancer de scène.
+- **Tests :** lanceur maison sans dépendance (`Tests/run_tests.gd`) pour le moteur de règles, qui doit être testé sans lancer de scène. Chaque fichier `Tests/test_*.gd` étend `TestCase` et définit des méthodes `test_*`. Lancement :
+  ```
+  Godot_v4.7.2-stable_win64_console.exe --headless --path . -s res://Tests/run_tests.gd
+  ```
+  Code de sortie 0 si tout passe, 1 sinon.
 - **UI :** rétro-futuriste, terminal, texte ambre ou vert sur fond noir.
 
 ## 4. Arborescence
