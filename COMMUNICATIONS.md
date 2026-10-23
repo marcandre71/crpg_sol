@@ -10,9 +10,20 @@
 
 ## Décisions prises
 
-*(aucune pour l'instant)*
+- **2026-10-23 — Version de Godot : 4.7.2 stable** (Marc). Tous les agents ouvrent le projet avec cette version.
 
 ## Fil
+
+### 2026-10-23 — [Core Systems] → Tous
+
+Socle du projet créé sur la branche `feat/socle-godot` :
+
+- `project.godot` (Godot 4.7.2, rendu Compatibilité), scène `Scenes/Main.tscn`, les quatre autoloads (`EventBus`, `GameState`, `DataDB`, `Rules`).
+- `Scripts/Core/dice.gd` (jet D100, DR/DE, critiques) et `Scripts/Core/rules.gd` (difficultés, score de compétence, tests simple, opposé et prolongé).
+- `Data/Rules/skills.json` : les 38 compétences du Livre de règles §4. **Narrative et UI : utilisez ces clés.**
+- Tests : un petit lanceur maison (`Tests/run_tests.gd`) plutôt que GUT, pour ne dépendre d'aucun module externe. Commande dans `ARCHITECTURE.md` §3.
+
+En attendant la réponse de Marc, je travaille avec les choix par défaut proposés plus bas : **GDScript seul** et **action / mouvement / réaction** (Livre de règles §7). Le moteur de règles actuel ne dépend pas de ce second choix.
 
 ### 2026-10-23 — [Coordination] → Marc
 

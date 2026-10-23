@@ -1,0 +1,28 @@
+; Engine configuration file.
+; Godot 4.7.2 stable.
+
+config_version=5
+
+[application]
+
+config/name="Sol, Nouvelle Ère — Thulé-7"
+config/description="Prototype cRPG au tour par tour : L'Impasse de l'Habitat Thulé-7."
+run/main_scene="res://Scenes/Main.tscn"
+config/features=PackedStringArray("4.7", "GL Compatibility")
+
+[autoload]
+
+EventBus="*res://Scripts/Autoload/event_bus.gd"
+GameState="*res://Scripts/Autoload/game_state.gd"
+DataDB="*res://Scripts/Autoload/data_db.gd"
+Rules="*res://Scripts/Autoload/rules_service.gd"
+
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=720
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"

@@ -19,19 +19,20 @@ Légende : `[ ]` libre · `[~]` en cours · `[x]` fait.
 
 ## Jalon 0 — Socle du dépôt
 
-- [ ] **Décisions à obtenir de Marc** 🔒 : version exacte de Godot, GDScript seul, Points d'Action ou action/mouvement/réaction (voir `COMMUNICATIONS.md`, 23/10/2026).
-- [ ] *(Level)* Créer le projet Godot (`project.godot`), l'arborescence de `ARCHITECTURE.md` §4 et un `.gitignore` Godot (`.godot/`, `*.import` selon la version).
-- [ ] *(Level)* Déclarer les autoloads vides `EventBus`, `GameState`, `DataDB`, `Rules`.
-- [ ] *(Core)* Installer GUT dans `addons/` et un premier test qui passe.
+- [x] Version de Godot : 4.7.2 stable (Marc, 23/10/2026).
+- [ ] **Décisions à obtenir de Marc** 🔒 : GDScript seul, Points d'Action ou action/mouvement/réaction (voir `COMMUNICATIONS.md`, 23/10/2026). Choix par défaut en attendant : GDScript, action/mouvement/réaction.
+- [x] *(Core, provisoirement pour Level)* Créer le projet Godot (`project.godot`), l'arborescence et le `.gitignore` (23/10/2026, branche `feat/socle-godot`).
+- [x] *(Core)* Déclarer les autoloads `EventBus`, `GameState`, `DataDB`, `Rules` (23/10/2026).
+- [x] *(Core)* Lanceur de tests sans dépendance et premiers tests qui passent (23/10/2026 ; remplace GUT).
 - [x] *(Coordination)* Créer `ARCHITECTURE.md`, `TODO_LIST.md`, `COMMUNICATIONS.md` (23/10/2026).
 
 ## Jalon 1 — Moteur de règles (sans interface)
 
-- [ ] *(Core)* `dice.gd` : jet D100 (00 = 100), DR/DE par dizaines, critiques (plages fixes 01-05 / 96-100, puis doubles), complication à 3 DE ou plus. Tests GUT couvrant les cas limites (00, 99 avec score ≥ 99, double égal au score, DR jamais < 0).
-- [ ] *(Core)* `rules.gd` : test simple avec difficulté + modificateurs plafonnés à ±50 ; compétence (F) non formée = ceil(caractéristique / 2) avant modificateurs ; `untrainedAllowed = false` = test impossible.
-- [ ] *(Core)* Test opposé (LdR §6) : un seul réussit ; sinon DR, puis score ; marge de victoire.
-- [ ] *(Core)* Test prolongé : réserve de progression (1 + DR par réussite), objectif, intervalle, complication.
-- [ ] *(Core)* `Data/Rules/skills.json` : les 38 compétences du LdR §4 (clé, caractéristique, F, Sp, domaine).
+- [x] *(Core)* `dice.gd` : jet D100 (00 = 100), DR/DE par dizaines, critiques (plages fixes 01-05 / 96-100, puis doubles), complication à 3 DE ou plus, avec tests des cas limites (23/10/2026).
+- [x] *(Core)* `rules.gd` : test simple avec difficulté + modificateurs plafonnés à ±50 ; compétence (F) non formée = ceil(caractéristique / 2) ; `untrainedAllowed = false` = test impossible (23/10/2026).
+- [x] *(Core)* Test opposé (LdR §6) : un seul réussit ; sinon DR, puis score ; marge de victoire (23/10/2026).
+- [x] *(Core)* Test prolongé : réserve de progression (1 + DR par réussite), objectif, intervalles, complications (23/10/2026).
+- [x] *(Core)* `Data/Rules/skills.json` : les 38 compétences du LdR §4 (23/10/2026).
 - [ ] *(Core)* `character_data.gd` : chargement JSON, valeurs dérivées (SB, TG, Endurance max, Sang-froid max), conditions.
 
 ## Jalon 2 — Contenu narratif
