@@ -33,7 +33,7 @@ Légende : `[ ]` libre · `[~]` en cours · `[x]` fait.
 - [x] *(Core)* Test opposé (LdR §6) : un seul réussit ; sinon DR, puis score ; marge de victoire (23/10/2026).
 - [x] *(Core)* Test prolongé : réserve de progression (1 + DR par réussite), objectif, intervalles, complications (23/10/2026).
 - [x] *(Core)* `Data/Rules/skills.json` : les 38 compétences du LdR §4 (23/10/2026).
-- [ ] *(Core)* `character_data.gd` : chargement JSON, valeurs dérivées (SB, TG, Endurance max, Sang-froid max), conditions.
+- [x] *(Core)* `character_data.gd` et `conditions.gd` : chargement et validation JSON, valeurs dérivées (SB, TG, Endurance max, Sang-froid max, bornes des blessures), Endurance et Sang-froid, hypoxie, position, conditions et leurs malus, blessures ; `Data/Rules/origins.json` ; `Rules.test_skill()` (23/10/2026).
 
 ## Jalon 2 — Contenu narratif
 

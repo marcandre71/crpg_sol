@@ -1,0 +1,12 @@
+{
+  "source": "Livre de règles v0.2, §9 (étape 2)",
+  "notes": "Les caractéristiques des fiches de Data/Characters sont des valeurs actuelles, modificateurs d'origine déjà inclus : characteristicModifiers ne sert qu'à la création de personnage. tgModifier entre dans le calcul de la Tolérance aux g.",
+  "origins": [
+    { "key": "terre", "name": "Terre", "characteristicModifiers": { "for": 5, "con": 10, "ada": -10 }, "gravityNative": 1.0, "tgModifier": 1 },
+    { "key": "lune", "name": "Lune ou orbite terrestre", "characteristicModifiers": { "coo": 5, "ada": 5, "con": -5 }, "gravityNative": 0.17, "tgModifier": 0 },
+    { "key": "mars", "name": "Mars", "characteristicModifiers": { "con": 5, "vol": 5, "for": -5 }, "gravityNative": 0.38, "tgModifier": -1 },
+    { "key": "ceinture", "name": "Ceinture (Cérès, Vesta, petits habitats)", "characteristicModifiers": { "ada": 15, "for": -5, "con": -5 }, "gravityNative": 0.35, "tgModifier": -2 },
+    { "key": "habitat_tournant", "name": "Habitat tournant (station)", "characteristicModifiers": { "ada": 10, "per": 5, "for": -5, "con": -5 }, "gravityNative": 0.5, "tgModifier": -1 },
+    { "key": "systemes_exterieurs", "name": "Systèmes extérieurs (Callisto, Titan)", "characteristicModifiers": { "vol": 10, "con": -5 }, "gravityNative": 0.14, "tgModifier": -1 }
+  ]
+}

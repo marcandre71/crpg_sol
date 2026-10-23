@@ -1,0 +1,20 @@
+{
+  "_source": "Fiche de personnage v0.2, §2 (exemple Ilka Moravec) ; jeu d'essai des tests, pas un personnage de la démo.",
+  "id": "ilka_moravec",
+  "name": "Ilka Moravec",
+  "faction": "mutuelle",
+  "origin": "ceinture",
+  "gravityNative": 0.35,
+  "characteristics": { "for": 25, "con": 35, "coo": 45, "ref": 35, "ada": 60, "per": 40, "int": 55, "vol": 36, "pre": 30 },
+  "skills": {
+    "manoeuvre_apesanteur": 10, "sortie_extravehiculaire": 20, "mecanique": 30, "electronique": 15,
+    "informatique": 10, "systemes_de_survie": 20, "reacteurs_propulsion": 20, "robotique_telepilotage": 10,
+    "premiers_secours": 10, "vigilance": 10, "fouille": 10, "negociation": 10, "culture": 10, "langues": 10
+  },
+  "armor": "combinaison_souple",
+  "weapons": ["pistolet_a_rivets", "electrochoc"],
+  "endurance": null,
+  "sangFroid": null,
+  "conditions": [],
+  "injuries": []
+}

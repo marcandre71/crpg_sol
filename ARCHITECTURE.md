@@ -114,6 +114,7 @@ Les noms de champs reprennent ceux de la Fiche de personnage §4 (codes en angla
   "id": "voronov",
   "name": "Voronov",
   "faction": "kombinat",
+  "origin": "systemes_exterieurs",
   "characteristics": { "for": 45, "con": 50, "coo": 40, "ref": 35, "ada": 30, "per": 40, "int": 50, "vol": 55, "pre": 45 },
   "gravityNative": 0.14,
   "skills": { "armes_de_poing": 15, "intimidation": 20, "negociation": 10, "manoeuvre_apesanteur": 0 },
@@ -121,6 +122,8 @@ Les noms de champs reprennent ceux de la Fiche de personnage §4 (codes en angla
   "weapons": ["pistolet_frangible"],
   "endurance": null,
   "sangFroid": null,
+  "hypoxia": 0,
+  "position": "anchored",
   "conditions": [],
   "injuries": []
 }
@@ -128,7 +131,12 @@ Les noms de champs reprennent ceux de la Fiche de personnage §4 (codes en angla
 
 - `skills` donne les **points de formation** (0 à 60), pas le score : le score se calcule (caractéristique + formation ; moitié de la caractéristique pour une compétence (F) non formée).
 - `endurance` et `sangFroid` à `null` = pleins au départ (max calculés : CON / 5 et VOL / 5, arrondis au supérieur).
-- Valeurs dérivées jamais stockées : SB = ceil((FOR + CON) / 20), TG = ceil(CON / 20) + origine.
+- Valeurs dérivées jamais stockées : SB = ceil((FOR + CON) / 20), TG = max(0, ceil(CON / 20) + origine).
+- `characteristics` = valeurs actuelles, modificateurs d'origine déjà inclus. `origin` est une clé de `Data/Rules/origins.json` (LdR §9) : elle donne le modificateur de TG et la gravité natale par défaut (`gravityNative` de la fiche prime).
+- `hypoxia` : stade 0 à 3. `position` : `anchored`, `floating` ou `flying`. `conditions` : `exposed`, `irradiated`, `doomed`, `bleeding`, `stunned`, `unconscious`, `under_g`, `suit_breached`, `exhausted`, `shocked` (liste dans `Scripts/Core/conditions.gd`).
+- `injuries` : `{ "location": "head" | "torso" | "rightArm" | "leftArm" | "rightLeg" | "leftLeg", "severity": "light" | "serious" | "critical" | "mortal", "treated": false, "source": "" }`.
+- `DataDB` valide chaque fiche au chargement (`CharacterData.validate`) et écarte une fiche invalide avec ses erreurs. `DataDB.get_character(id)` renvoie un `CharacterData` neuf ; `GameState.add_character()` le rend présent dans la scène et relaie ses changements de condition vers `EventBus.condition_changed`.
+- Test d'un personnage : `Rules.test_skill(character, skill_key, difficulty, mods)` ajoute les malus de conditions (hypoxie −10 par stade, Épuisé −20, Choqué −20 en `relations` et `technique`), qui entrent dans le plafond de ±50.
 - Les chiffres de l'exemple sont fictifs : les PNJ sont à écrire par l'agent Narrative.
 
 ### 6.2 Dialogue (`Data/Dialogues/*.json`)
@@ -176,4 +184,7 @@ Le LdR laisse beaucoup de décisions au meneur. Dans le jeu, chaque décision du
 | Le meneur fixe difficulté et modificateurs | Fixés dans les données (dialogues, objets interactifs). | proposé |
 | Surprise : le meneur désigne les surpris | Déclenchée par la scène (ex. tir hors dialogue). | proposé |
 | Tour de combat ≈ 5 s ; horloge en minutes | L'horloge du support vital avance de 5 s par tour de combat et du `timeCost` des actions hors combat. | proposé |
+| Endurance à 0 : test de CON pour rester conscient (LdR §3) | Réussi = Épuisé ; raté = Inconscient (le LdR ne dit pas explicitement l'effet de l'échec). Le jeu ne retire pas Épuisé tout seul : c'est la scène qui décide (le LdR laisse ce choix au meneur). | proposé |
+| Choqué : −20 aux « actions sociales et techniques » (LdR §11) | −20 aux compétences des domaines `relations` et `technique`. | proposé |
+| Gravité natale de la Ceinture (0,03 à 0,5 g) et des habitats tournants (0,3 à 0,7 g) | Valeur par défaut 0,35 g et 0,5 g dans `origins.json` ; la fiche peut donner la sienne. | proposé |
 | Valeurs d'armes provisoires (LdR §7) | Reprises telles quelles dans `Data/Items/`, marquées provisoires. | proposé |

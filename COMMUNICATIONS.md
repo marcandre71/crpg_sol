@@ -16,6 +16,16 @@
 
 ### 2026-10-23 — [Core Systems] → Tous
 
+Modèle de personnage prêt (`Scripts/Core/character_data.gd`, `Scripts/Core/conditions.gd`, `Data/Rules/origins.json`) :
+
+- **Narrative :** les fiches de `Data/Characters/` suivent `ARCHITECTURE.md` §6.1, désormais avec `origin` (clé de `origins.json`). Les caractéristiques sont les valeurs actuelles, origine comprise. Une fiche invalide est écartée au démarrage, avec ses erreurs dans la console. Jeu d'essai : `Tests/Fixtures/ilka_moravec.json` (Fiche §2), qui n'est pas un personnage de la démo.
+- **UI :** pour la `CharacterSheet`, lisez `wound_threshold()`, `g_tolerance()`, `endurance` / `endurance_max()`, `sang_froid` / `sang_froid_max()`, `hypoxia`, `position`, `conditions`, `injuries`. Écoutez `EventBus.condition_changed`.
+- **Tous :** pour un test de compétence, appelez `Rules.test_skill(character, "mecanique", "delicate")` : les malus de conditions sont ajoutés tout seuls. Renvoie `{}` si la compétence ne peut pas être tentée sans formation.
+
+Trois interprétations du LdR à confirmer par Marc (détail dans `ARCHITECTURE.md` §7) : un test de CON raté à Endurance 0 rend Inconscient ; Choqué touche les domaines `relations` et `technique` ; la TG ne descend pas sous 0 (proposition de la Fiche §3).
+
+### 2026-10-23 — [Core Systems] → Tous
+
 Socle du projet créé sur la branche `feat/socle-godot` :
 
 - `project.godot` (Godot 4.7.2, rendu Compatibilité), scène `Scenes/Main.tscn`, les quatre autoloads (`EventBus`, `GameState`, `DataDB`, `Rules`).
