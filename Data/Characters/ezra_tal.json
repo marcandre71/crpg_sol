@@ -1,0 +1,22 @@
+{
+  "_notes": "Personnage joueur pré-tiré PROVISOIRE (décision n° 4 en attente : nouveau personnage ou Ilka Moravec). Création du LdR §9 : 25 partout + 130 points (FOR 30, CON 45, COO 40, RÉF 40, ADA 40, PER 40, INT 45, VOL 40, PRÉ 35), origine Ceinture (ADA +15, FOR −5, CON −5) ; milieu Famille de sociétaires (Sortie extravéhiculaire, Négociation, Mécanique +10) ; profession « Sauveteur du vide » proposée (absente du LdR) : Manœuvre en apesanteur, Sortie extravéhiculaire, Premiers secours +20 ; Systèmes de survie, Mécanique, Vigilance, Commandement, Persuasion +10 ; 40 points libres : Psychologie, Armes de poing, Électronique, Esquive +10.",
+  "id": "ezra_tal",
+  "name": "Ezra Tal",
+  "faction": "mutuelle",
+  "origin": "ceinture",
+  "gravityNative": 0.35,
+  "characteristics": { "for": 25, "con": 40, "coo": 40, "ref": 40, "ada": 55, "per": 40, "int": 45, "vol": 40, "pre": 35 },
+  "skills": {
+    "manoeuvre_apesanteur": 20, "sortie_extravehiculaire": 30, "premiers_secours": 20,
+    "systemes_de_survie": 10, "mecanique": 20, "vigilance": 10, "commandement": 10, "persuasion": 10,
+    "negociation": 10, "psychologie": 10, "armes_de_poing": 10, "electronique": 10, "esquive": 10
+  },
+  "armor": "combinaison_souple",
+  "weapons": ["pistolet_a_flechettes"],
+  "gear": { "rustine": 3, "kit_outils": 1, "trousse_de_secours": 1 },
+  "endurance": null,
+  "sangFroid": null,
+  "position": "floating",
+  "conditions": [],
+  "injuries": []
+}

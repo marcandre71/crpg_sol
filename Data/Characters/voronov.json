@@ -1,0 +1,21 @@
+{
+  "_notes": "Chef de la sécurité du Kombinat Hélion à Thulé-7. Origine Systèmes extérieurs (Titan) ; profession Garde ou soldat (LdR §9).",
+  "id": "voronov",
+  "name": "Voronov",
+  "faction": "kombinat",
+  "origin": "systemes_exterieurs",
+  "gravityNative": 0.14,
+  "characteristics": { "for": 45, "con": 45, "coo": 45, "ref": 40, "ada": 40, "per": 45, "int": 40, "vol": 55, "pre": 40 },
+  "skills": {
+    "armes_d_epaule": 20, "armes_de_poing": 20, "intimidation": 20, "esquive": 10, "manoeuvre_apesanteur": 10,
+    "vigilance": 10, "negociation": 10, "corps_a_corps": 10, "psychologie": 10, "premiers_secours": 10
+  },
+  "armor": "combinaison_renforcee",
+  "weapons": ["carabine"],
+  "gear": { "rustine": 2 },
+  "endurance": null,
+  "sangFroid": 7,
+  "position": "anchored",
+  "conditions": [],
+  "injuries": []
+}

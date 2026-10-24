@@ -1,0 +1,20 @@
+{
+  "_notes": "Inspecteur de la Veille. Origine Terre ; profession Inspecteur de la Veille (LdR §9).",
+  "id": "kael",
+  "name": "Kael",
+  "faction": "veille",
+  "origin": "terre",
+  "characteristics": { "for": 40, "con": 50, "coo": 45, "ref": 45, "ada": 25, "per": 50, "int": 50, "vol": 50, "pre": 45 },
+  "skills": {
+    "bureaucratie_droit": 20, "psychologie": 20, "armes_de_poing": 20, "fouille": 10, "operations_de_bord": 10,
+    "intimidation": 10, "mecanique_orbitale": 10, "vigilance": 10, "esquive": 10, "manoeuvre_apesanteur": 10
+  },
+  "armor": "combinaison_renforcee",
+  "weapons": ["pistolet_frangible"],
+  "gear": { "rustine": 1 },
+  "endurance": null,
+  "sangFroid": 6,
+  "position": "anchored",
+  "conditions": [],
+  "injuries": []
+}

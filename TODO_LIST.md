@@ -33,41 +33,42 @@ Légende : `[ ]` libre · `[~]` en cours · `[x]` fait.
 - [x] *(Core)* Test opposé (LdR §6) : un seul réussit ; sinon DR, puis score ; marge de victoire (23/10/2026).
 - [x] *(Core)* Test prolongé : réserve de progression (1 + DR par réussite), objectif, intervalles, complications (23/10/2026).
 - [x] *(Core)* `Data/Rules/skills.json` : les 38 compétences du LdR §4 (23/10/2026).
-- [ ] *(Core)* `character_data.gd` : chargement JSON, valeurs dérivées (SB, TG, Endurance max, Sang-froid max), conditions.
+- [x] *(Core)* `character_data.gd` et `conditions.gd` : chargement et validation JSON, valeurs dérivées (SB, TG, Endurance max, Sang-froid max, bornes des blessures), Endurance et Sang-froid, hypoxie, position, conditions et leurs malus, blessures ; `Data/Rules/origins.json` ; `Rules.test_skill()` (23/10/2026).
 
 ## Jalon 2 — Contenu narratif
 
-- [ ] *(Narrative)* Fiches des PNJ dans `Data/Characters/` : Lina (Mutuelle, blessée), Kael (Office de la Veille), Voronov (Kombinat Hélion). Pour chacun : caractéristiques, formations, équipement, ce qu'il sait du conteneur, ce qu'il veut, « le vice et la lueur » (Bible §9).
-- [ ] *(Narrative)* Personnage joueur pré-tiré : Sauveteur du vide de la Mutuelle (origine, milieu, profession du LdR §9). 🔒 Créer un nouveau personnage, ou adapter Ilka Moravec (Fiche §2) ?
-- [ ] *(Narrative)* Document de scénario `Data/Dialogues/README.md` : situation de départ, ce qui s'est passé à Thulé-7 pendant les 19 jours, contenu réel du conteneur, fins possibles. Respecter la Bible §12 (aucune réponse sur la nature de la Sereguine, aucun procédé d'arme biologique).
-- [ ] *(Narrative)* Dialogues JSON (schéma `ARCHITECTURE.md` §6.2) : un fichier par PNJ, avec au moins une voie de désescalade complète.
-- [ ] *(Narrative)* `Data/Items/` : pistolet frangible (6), carabine (10), pistolet à fléchettes, électrochoc, outils détournés ; combinaison souple, renforcée, armure de pont ; rustines ; kit d'outils (+10). Valeurs provisoires du LdR.
+> Version provisoire jouable faite le 24/10/2026 (démo textuelle). Les ⚠ attendent une décision de Marc.
+
+- [x] *(Narrative)* Fiches des PNJ dans `Data/Characters/` : Lina, Kael, Voronov (24/10/2026). ⚠ Lina = celle de la Bible §8 (décision n° 6).
+- [x] *(Narrative)* Personnage joueur pré-tiré provisoire : Ezra Tal, sauveteur du vide de la Mutuelle (`ezra_tal.json`, création du LdR §9 ; profession « Sauveteur du vide » proposée) (24/10/2026). 🔒 À confirmer : garder Ezra ou adapter Ilka Moravec (décision n° 4).
+- [x] *(Narrative)* Document de scénario `Data/Dialogues/README.md` (24/10/2026). ⚠ Contenu du conteneur provisoire (décision n° 5).
+- [x] *(Narrative)* Dialogue JSON `thule7_sas.json` : 50 nœuds, voie de désescalade complète, 7 fins (24/10/2026). Un fichier par scène plutôt que par PNJ.
+- [x] *(Narrative)* `Data/Items/items.json` : armes, combinaisons, rustines, kit d'outils (valeurs provisoires du LdR) (24/10/2026). Électrochoc non repris (pas utilisé dans la démo).
+- [ ] *(Narrative)* Relecture du ton et des textes par Marc ; enrichir les répliques (Lina, Kael et Voronov ont chacun 3 à 6 répliques).
 
 ## Jalon 3 — Interface terminal
 
-- [ ] *(UI)* Thème Godot rétro-futuriste (police monospace, ambre ou vert sur noir), dans `Scenes/UI/theme.tres`.
-- [ ] *(UI)* `DialogueBox` : texte du PNJ, choix, étiquette de compétence et chance de réussite affichée (score modifié).
-- [ ] *(UI)* Carte de résultat de test (dé, score, DR/DE, critique), équivalent de la « chat card » du LdR §15.
-- [ ] *(UI)* `LifeSupportClock` : compte à rebours toujours visible.
-- [ ] *(UI)* `CharacterSheet` réduite : caractéristiques, compétences utiles, Endurance, Sang-froid, blessures par zone, conditions.
+- [x] *(UI)* Thème rétro-futuriste ambre sur noir, police à chasse fixe (`Scripts/UI/terminal_theme.gd`, construit par code plutôt qu'en `.tres`) (24/10/2026).
+- [x] *(UI)* Écran de jeu (`Scenes/UI/Game.tscn`) : journal façon terminal, choix numérotés (touches 1 à 9) avec compétence et chance de réussite, résultat de chaque jet (dé, score, DR/DE, critique), compte à rebours toujours visible, fiche réduite et état des PNJ (24/10/2026).
+- [x] *(UI)* Écran titre (`Scenes/Main.tscn`) (24/10/2026).
+- [ ] *(UI)* Habillage : police dédiée (`Assets/Fonts`), effet de balayage d'écran, sons d'interface.
 
 ## Jalon 4 — Environnement et ingénierie
 
-- [ ] *(Core)* Horloge du support vital dans `GameState` : temps restant, tick par tour (5 s) et par action (`timeCost`).
-- [ ] *(Core)* Effets du froid et de l'hypoxie (stades 1 à 3, −10 par stade ; perte d'Endurance), Épuisé à Endurance 0.
-- [ ] *(Core)* Réparation du sas ou du support vital en test prolongé (ex. LdR : recycleur 8 DR, 30 min ; à ajuster pour la démo).
-- [ ] *(Level)* Scène `Thule7_SasPrincipal` : points d'appui, couverts, panneau de réparation, conteneur cryogénique.
+- [x] *(Core)* Horloge du support vital (`Scripts/Environment/life_support.gd`) : 15 min, `timeCost` des choix, 5 s par tour de combat, alertes à 5, 2 et 1 min (24/10/2026).
+- [x] *(Core)* Réparation du recycleur en test prolongé : 8 DR, 60 s par tentative, trois compétences au choix, complications (24/10/2026).
+- [ ] *(Core)* Effets du froid et de l'hypoxie sur les personnages (le modèle les gère ; la démo ne les déclenche pas encore).
+- [ ] *(Level)* Scène `Thule7_SasPrincipal` en 2D ou 3D : points d'appui, couverts, panneau de réparation, conteneur cryogénique.
 
 ## Jalon 5 — Combat en apesanteur
 
-- [ ] *(Core)* Initiative glissante (LdR §7) avec tous les départages et renvois en fin d'ordre.
-- [ ] *(Core)* Attaque : compétence de l'arme, visée (+10 par action, max +30), tir visé, localisation par jet inversé, dégâts + DR − armure, gravité de blessure contre le SB.
-- [ ] *(Core)* Brèche de combinaison : seuil de brèche, compte à rebours de 5 min puis 2 min, rustine (Survie sous le feu).
-- [ ] *(Core)* Apesanteur : recul (test de Manœuvre en apesanteur si non ancré, −20 en rafale), Ancré / Flottant / En vol, lutte (moyenne FOR et ADA).
-- [ ] *(UI)* `CombatHUD` : ordre d'initiative, action/mouvement/réaction restants, choix de zone visée.
-- [ ] *(Level)* Comportement des PNJ en combat (simple : se mettre à couvert, tirer, se rendre).
+- [x] *(Core)* `Scripts/Combat/combat.gd` : initiative glissante (départages, renvois en fin d'ordre), attaque, visée, tir visé (torse, visière), esquive en réaction, localisation par jet inversé, dégâts + DR − armure, gravité contre le SB, effets des blessures, brèche de combinaison, rustine, recul hors ancrage, ancrage, couvert, recharge, premiers secours, cessez-le-feu, IA simple (24/10/2026).
+- [x] *(UI)* Combat dans l'écran de jeu : ordre d'initiative, actions disponibles avec chances, état des combattants (24/10/2026).
+- [ ] *(Core)* Compte à rebours de la brèche (5 min puis 2 min), En vol et élan, rafale, lutte (FOR + ADA) / 2.
+- [ ] *(Core)* Équilibrage : un sauveteur seul contre la carabine de Voronov gagne environ 1 fois sur 10 en simulation (IA contre IA). Voulu (« le combat doit faire peur ») ou à adoucir ?
 
 ## Jalon 6 — Démo jouable
 
-- [ ] *(Level)* Enchaîner arrivée → dialogue → résolution (dialogue, ingénierie ou combat) → fin.
-- [ ] *(Tous)* Partie test complète par chacune des trois voies ; noter les déséquilibres dans `COMMUNICATIONS.md`.
+- [x] *(Level)* Enchaîner arrivée → dialogue → résolution (dialogue, ingénierie ou combat) → fin (24/10/2026).
+- [x] *(Tous)* Parties automatiques dans la vraie interface (`Tests/play_demo.gd`) : aucune partie bloquée (24/10/2026).
+- [ ] *(Marc)* Partie test complète par chacune des trois voies ; noter les déséquilibres dans `COMMUNICATIONS.md`.

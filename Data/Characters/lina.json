@@ -1,0 +1,21 @@
+{
+  "_notes": "PROVISOIRE : on suppose que c'est la Lina de la Bible §8 (technicienne de support vital de Cérès, 27 ans ; décision n° 6 en attente).",
+  "id": "lina",
+  "name": "Lina",
+  "faction": "mutuelle",
+  "origin": "ceinture",
+  "gravityNative": 0.35,
+  "characteristics": { "for": 25, "con": 35, "coo": 45, "ref": 40, "ada": 60, "per": 45, "int": 50, "vol": 45, "pre": 35 },
+  "skills": {
+    "systemes_de_survie": 30, "mecanique": 20, "electronique": 10, "manoeuvre_apesanteur": 20,
+    "sortie_extravehiculaire": 10, "armes_de_poing": 0, "negociation": 10, "vigilance": 10
+  },
+  "armor": "combinaison_souple",
+  "weapons": ["pistolet_a_rivets"],
+  "gear": {},
+  "endurance": 3,
+  "sangFroid": 4,
+  "position": "anchored",
+  "conditions": [],
+  "injuries": [{ "location": "leftLeg", "severity": "serious", "treated": false, "source": "carabine frangible" }]
+}
