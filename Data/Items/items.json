@@ -1,0 +1,17 @@
+{
+  "source": "Livre de règles v0.2, §7 et §12 ; Fiche de personnage v0.2, onglet 6. Valeurs provisoires (le LdR les marque comme telles).",
+  "items": [
+    { "key": "pistolet_frangible", "type": "weapon", "name": "Pistolet frangible", "skill": "armes_de_poing", "damage": 6, "recoil": true, "ammo": 12, "ammoType": "frangible", "hullSafe": true, "provisional": true },
+    { "key": "carabine", "type": "weapon", "name": "Carabine frangible", "skill": "armes_d_epaule", "damage": 10, "recoil": true, "ammo": 20, "ammoType": "frangible", "hullSafe": true, "provisional": true },
+    { "key": "pistolet_a_flechettes", "type": "weapon", "name": "Pistolet à fléchettes", "skill": "armes_de_poing", "damage": 4, "recoil": false, "ammo": 10, "ammoType": "flechette", "hullSafe": true, "provisional": true, "notes": "Silencieux, faible recul. Dégâts proposés : absents du LdR." },
+    { "key": "pistolet_a_rivets", "type": "weapon", "name": "Pistolet à rivets", "skill": "armes_de_poing", "damage": 8, "recoil": true, "ammo": 20, "ammoType": "none", "hullSafe": false, "provisional": true, "notes": "Outil détourné (Fiche, onglet 6)." },
+
+    { "key": "combinaison_souple", "type": "armor", "name": "Combinaison souple de travail", "protection": { "head": 1, "torso": 1, "rightArm": 1, "leftArm": 1, "rightLeg": 1, "leftLeg": 1 }, "breachThreshold": 4, "pressurized": true },
+    { "key": "combinaison_renforcee", "type": "armor", "name": "Combinaison renforcée", "protection": { "head": 3, "torso": 3, "rightArm": 2, "leftArm": 2, "rightLeg": 2, "leftLeg": 2 }, "breachThreshold": 8, "pressurized": true },
+    { "key": "armure_de_pont", "type": "armor", "name": "Armure de pont", "protection": { "head": 5, "torso": 6, "rightArm": 4, "leftArm": 4, "rightLeg": 4, "leftLeg": 4 }, "breachThreshold": 12, "pressurized": true },
+
+    { "key": "rustine", "type": "gear", "name": "Rustine de combinaison", "notes": "Consommable : une action ; aucun test au calme, Survie (Normale) sous le feu." },
+    { "key": "kit_outils", "type": "gear", "name": "Kit d'outils de qualité", "toolBonus": 10 },
+    { "key": "trousse_de_secours", "type": "gear", "name": "Trousse de premiers secours" }
+  ]
+}

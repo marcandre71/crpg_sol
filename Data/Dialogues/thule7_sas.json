@@ -1,0 +1,892 @@
+{
+ "id": "thule7_sas",
+ "_notes": "Scénario PROVISOIRE de la démo (voir Data/Dialogues/README.md) : contenu du conteneur et identité de Lina en attente des décisions n° 5 et 6 de Marc.",
+ "start": "intro",
+ "lifeSupportSeconds": 900,
+ "speakers": {
+  "narrateur": "",
+  "kael": "Kael",
+  "voronov": "Voronov",
+  "lina": "Lina"
+ },
+ "nodes": {
+  "intro": {
+   "speaker": "narrateur",
+   "text": "Thulé-7, habitat minier de la Ceinture. Silencieux depuis dix-neuf jours. Onze jours de trajet pour venir jusqu'ici, et la Veille qui vous demandait de ne pas le faire.\n\nLe sas principal est plongé dans une pénombre bleue. Le givre a mangé les hublots. Le greffier de votre combinaison affiche −31 °C et une alarme orange : RECYCLEUR DU SAS — DÉFAILLANCE — AUTONOMIE 15 MIN.",
+   "next": "intro_2"
+  },
+  "intro_2": {
+   "speaker": "narrateur",
+   "text": "Trois silhouettes flottent entre les caisses de fret, chacune agrippée à une poignée, chacune une arme pointée sur les deux autres. Au centre, sanglé au filet, un conteneur cryogénique cerclé de givre.",
+   "next": "intro_kael"
+  },
+  "intro_kael": {
+   "speaker": "kael",
+   "text": "« Mutuelle ? Restez où vous êtes. Office de la Veille, inspecteur Kael. Ce conteneur est sous scellé. »",
+   "next": "intro_voronov"
+  },
+  "intro_voronov": {
+   "speaker": "voronov",
+   "text": "« Il n'y a pas de scellé. Il y a un bien du Kombinat Hélion, et un fonctionnaire très loin de chez lui. » La carabine ne tremble pas.",
+   "next": "intro_lina"
+  },
+  "intro_lina": {
+   "speaker": "lina",
+   "text": "Une voix faible, depuis le fond du sas : « Sauveteur… le recycleur. Si le sas lâche, le refuge lâche aussi. Quarante et un habitants, derrière cette cloison. »",
+   "next": "hub"
+  },
+  "hub": {
+   "speaker": "narrateur",
+   "text": "Le métal du sas craque sous le froid. Trois armes, un conteneur, un recycleur qui tousse. Que faites-vous ?",
+   "redirects": [
+    {
+     "conditions": [
+      {
+       "flag": "support_repare"
+      }
+     ],
+     "next": "hub_repare"
+    }
+   ],
+   "choices": [
+    {
+     "text": "Parler à Kael, l'inspecteur de la Veille.",
+     "next": "kael_1",
+     "timeCost": 10
+    },
+    {
+     "text": "Parler à Voronov, du Kombinat Hélion.",
+     "next": "vor_1",
+     "timeCost": 10,
+     "conditions": [
+      {
+       "notFlag": "voronov_hors_combat"
+      }
+     ]
+    },
+    {
+     "text": "Rejoindre Lina, blessée au fond du sas.",
+     "next": "lina_1",
+     "timeCost": 10
+    },
+    {
+     "text": "Examiner le conteneur cryogénique.",
+     "next": "cont_1",
+     "timeCost": 10,
+     "conditions": [
+      {
+       "notFlag": "sait_contenu"
+      }
+     ]
+    },
+    {
+     "text": "« Tout le monde baisse son arme. Maintenant. »",
+     "conditions": [
+      {
+       "notFlag": "treve"
+      },
+      {
+       "notFlag": "ordre_donne"
+      }
+     ],
+     "once": true,
+     "timeCost": 10,
+     "skillCheck": {
+      "skill": "commandement",
+      "difficulty": "difficile",
+      "modifiers": []
+     },
+     "success": "cmd_ok",
+     "criticalSuccess": "cmd_crit",
+     "failure": "tension_up",
+     "criticalFailure": "explosion",
+     "effects": {
+      "always": [
+       {
+        "setFlag": "ordre_donne"
+       }
+      ]
+     }
+    },
+    {
+     "text": "Proposer une trêve : on répare d'abord, on se dispute ensuite.",
+     "next": "treve_1",
+     "timeCost": 15,
+     "conditions": [
+      {
+       "flag": "kael_calme"
+      },
+      {
+       "flag": "voronov_calme"
+      },
+      {
+       "notFlag": "treve"
+      }
+     ]
+    },
+    {
+     "text": "Ouvrir le panneau du recycleur.",
+     "next": "repair_start",
+     "conditions": [
+      {
+       "flag": "treve"
+      },
+      {
+       "notFlag": "support_repare"
+      }
+     ]
+    },
+    {
+     "text": "Ouvrir le panneau du recycleur sous la menace des armes.",
+     "next": "repair_menace",
+     "conditions": [
+      {
+       "notFlag": "treve"
+      }
+     ]
+    },
+    {
+     "text": "Dégainer et tirer sur Voronov.",
+     "next": "tir_joueur",
+     "conditions": [
+      {
+       "notFlag": "treve"
+      }
+     ]
+    }
+   ]
+  },
+  "hub_repare": {
+   "speaker": "narrateur",
+   "text": "Le recycleur ronronne. L'air se réchauffe lentement, le givre recule des hublots. Reste le conteneur.",
+   "choices": [
+    {
+     "text": "Parler à Kael.",
+     "next": "kael_1"
+    },
+    {
+     "text": "Parler à Voronov.",
+     "next": "vor_1",
+     "conditions": [
+      {
+       "notFlag": "voronov_hors_combat"
+      }
+     ]
+    },
+    {
+     "text": "Rejoindre Lina.",
+     "next": "lina_1"
+    },
+    {
+     "text": "Examiner le conteneur cryogénique.",
+     "next": "cont_1",
+     "conditions": [
+      {
+       "notFlag": "sait_contenu"
+      }
+     ]
+    },
+    {
+     "text": "Décider du sort du conteneur.",
+     "next": "decision"
+    }
+   ]
+  },
+  "cmd_ok": {
+   "speaker": "kael",
+   "text": "Kael est le premier à céder. Il abaisse son pistolet, lentement. « Vous avez cinq minutes, sauveteur. » Voronov, lui, ne bouge pas.",
+   "effects": [
+    {
+     "setFlag": "kael_calme"
+    }
+   ],
+   "next": "hub"
+  },
+  "cmd_crit": {
+   "speaker": "narrateur",
+   "text": "Votre voix porte jusque dans les os du sas. Kael abaisse son pistolet ; une seconde plus tard, le canon de la carabine de Voronov pique vers le sol.",
+   "effects": [
+    {
+     "setFlag": "kael_calme"
+    },
+    {
+     "setFlag": "voronov_calme"
+    }
+   ],
+   "next": "hub"
+  },
+  "tension_up": {
+   "speaker": "narrateur",
+   "text": "Voronov resserre sa prise sur la carabine. Le doigt de Kael glisse sur la détente. Un faux pas de plus, et ça tire.",
+   "redirects": [
+    {
+     "conditions": [
+      {
+       "flag": "tension"
+      }
+     ],
+     "next": "explosion"
+    }
+   ],
+   "effects": [
+    {
+     "setFlag": "tension"
+    }
+   ],
+   "next": "hub"
+  },
+  "explosion": {
+   "speaker": "narrateur",
+   "text": "Le geste de trop. Quelqu'un bouge, quelqu'un d'autre croit qu'il dégaine. Le premier coup part.",
+   "next": "combat"
+  },
+  "tir_joueur": {
+   "speaker": "narrateur",
+   "text": "Vous lâchez votre poignée d'une main et tirez votre pistolet à fléchettes. Voronov vous voit faire.",
+   "next": "combat"
+  },
+  "repair_menace": {
+   "speaker": "voronov",
+   "text": "« Les mains loin de ce panneau, sauveteur. Personne ne touche à rien tant qu'on n'est pas d'accord. » Le canon de la carabine vous suit.",
+   "next": "hub"
+  },
+  "kael_1": {
+   "speaker": "kael",
+   "text": "Visière embuée, voix enrouée. « Ce qu'il y a dans ce conteneur ne regarde pas la Mutuelle. La Veille vous avait demandé de ne pas venir. »",
+   "choices": [
+    {
+     "text": "[Jauger Kael] Bluffe-t-il ?",
+     "once": true,
+     "timeCost": 15,
+     "conditions": [
+      {
+       "notFlag": "kael_calme"
+      }
+     ],
+     "skillCheck": {
+      "skill": "psychologie",
+      "difficulty": "normale",
+      "modifiers": []
+     },
+     "success": "kael_lu",
+     "failure": "kael_illisible"
+    },
+    {
+     "text": "« La Veille n'est pas là. Moi, si. Aidez-moi à garder ces gens en vie. »",
+     "timeCost": 20,
+     "conditions": [
+      {
+       "notFlag": "kael_calme"
+      },
+      {
+       "flag": "kael_lu_ok"
+      }
+     ],
+     "skillCheck": {
+      "skill": "persuasion",
+      "difficulty": "aisee",
+      "modifiers": []
+     },
+     "success": "kael_calm",
+     "failure": "kael_refuse",
+     "complication": "tension_up"
+    },
+    {
+     "text": "« La Veille n'est pas là. Moi, si. Aidez-moi à garder ces gens en vie. »",
+     "timeCost": 20,
+     "conditions": [
+      {
+       "notFlag": "kael_calme"
+      },
+      {
+       "notFlag": "kael_lu_ok"
+      }
+     ],
+     "skillCheck": {
+      "skill": "persuasion",
+      "difficulty": "delicate",
+      "modifiers": []
+     },
+     "success": "kael_calm",
+     "failure": "kael_refuse",
+     "complication": "tension_up"
+    },
+    {
+     "text": "« Appel de détresse : la Convention de Vesta donne la priorité au sauveteur. »",
+     "once": true,
+     "timeCost": 20,
+     "conditions": [
+      {
+       "notFlag": "kael_calme"
+      }
+     ],
+     "skillCheck": {
+      "skill": "bureaucratie_droit",
+      "difficulty": "difficile",
+      "modifiers": []
+     },
+     "success": "kael_calm",
+     "failure": "kael_refuse"
+    },
+    {
+     "text": "« Que veut vraiment la Veille ? »",
+     "once": true,
+     "timeCost": 15,
+     "conditions": [
+      {
+       "flag": "kael_calme"
+      }
+     ],
+     "next": "kael_veut"
+    },
+    {
+     "text": "Revenir au centre du sas.",
+     "next": "hub"
+    }
+   ]
+  },
+  "kael_lu": {
+   "speaker": "narrateur",
+   "text": "Sa main tremble, et pas seulement de froid. Il n'a pas dormi depuis des jours. Il ne veut pas tirer : il veut que quelqu'un d'autre décide à sa place.",
+   "effects": [
+    {
+     "setFlag": "kael_lu_ok"
+    }
+   ],
+   "next": "kael_1"
+  },
+  "kael_illisible": {
+   "speaker": "narrateur",
+   "text": "Impossible de lire quoi que ce soit derrière cette visière couverte de givre.",
+   "next": "kael_1"
+  },
+  "kael_calm": {
+   "speaker": "kael",
+   "text": "Un long silence. Puis Kael abaisse son pistolet. « D'accord. Mais personne ne touche au conteneur sans moi. »",
+   "effects": [
+    {
+     "setFlag": "kael_calme"
+    }
+   ],
+   "next": "kael_1"
+  },
+  "kael_refuse": {
+   "speaker": "kael",
+   "text": "« Belles paroles. Je reste où je suis. »",
+   "next": "kael_1"
+  },
+  "kael_veut": {
+   "speaker": "kael",
+   "text": "« Que personne ne s'en serve. Ni le Kombinat, ni la Caisse Noire. Avec la Veille, il dormira dans un coffre à Shackleton, et personne n'en entendra plus jamais parler. » Il hésite. « C'est peut-être la moins mauvaise fin. »",
+   "next": "kael_1"
+  },
+  "vor_1": {
+   "speaker": "voronov",
+   "text": "« Sauveteur. Bien. Tu vas m'aider à charger ce conteneur dans ta navette, et tout le monde rentre chez soi. »",
+   "choices": [
+    {
+     "text": "[Jauger Voronov] Que craint-il vraiment ?",
+     "once": true,
+     "timeCost": 15,
+     "conditions": [
+      {
+       "notFlag": "voronov_calme"
+      }
+     ],
+     "skillCheck": {
+      "skill": "psychologie",
+      "difficulty": "normale",
+      "modifiers": []
+     },
+     "success": "vor_lu",
+     "failure": "vor_illisible"
+    },
+    {
+     "text": "« Le conteneur ne quitte pas ce sas tant que le recycleur n'est pas réparé. Après, on discute. »",
+     "timeCost": 20,
+     "conditions": [
+      {
+       "notFlag": "voronov_calme"
+      }
+     ],
+     "skillCheck": {
+      "skill": "negociation",
+      "difficulty": "normale",
+      "modifiers": [],
+      "opposedBy": {
+       "npc": "voronov",
+       "skill": "negociation"
+      }
+     },
+     "success": "vor_calm",
+     "failure": "vor_refuse",
+     "complication": "tension_up"
+    },
+    {
+     "text": "« Ceux qui t'attendent à Titan ne viendront pas te chercher. Moi, je suis venu. »",
+     "timeCost": 20,
+     "conditions": [
+      {
+       "notFlag": "voronov_calme"
+      },
+      {
+       "flag": "voronov_lu"
+      }
+     ],
+     "skillCheck": {
+      "skill": "persuasion",
+      "difficulty": "aisee",
+      "modifiers": []
+     },
+     "success": "vor_calm",
+     "failure": "vor_refuse"
+    },
+    {
+     "text": "« Je sais pour le contrat de la Caisse Noire. Si tu tires, tout le système le saura. »",
+     "once": true,
+     "timeCost": 20,
+     "conditions": [
+      {
+       "notFlag": "voronov_calme"
+      },
+      {
+       "flag": "sait_contrat"
+      }
+     ],
+     "skillCheck": {
+      "skill": "intimidation",
+      "difficulty": "normale",
+      "modifiers": []
+     },
+     "success": "vor_calm",
+     "failure": "tension_up"
+    },
+    {
+     "text": "« Pose cette carabine. Une balle perdue, et c'est le sas entier qui part. »",
+     "once": true,
+     "timeCost": 15,
+     "conditions": [
+      {
+       "notFlag": "voronov_calme"
+      }
+     ],
+     "skillCheck": {
+      "skill": "intimidation",
+      "difficulty": "difficile",
+      "modifiers": []
+     },
+     "success": "vor_calm",
+     "failure": "tension_up"
+    },
+    {
+     "text": "« Pourquoi avoir coupé la balise ? »",
+     "once": true,
+     "timeCost": 15,
+     "conditions": [
+      {
+       "flag": "voronov_calme"
+      },
+      {
+       "flag": "sait_contrat"
+      }
+     ],
+     "next": "vor_aveu"
+    },
+    {
+     "text": "Revenir au centre du sas.",
+     "next": "hub"
+    }
+   ]
+  },
+  "vor_lu": {
+   "speaker": "narrateur",
+   "text": "Il a peur, mais pas de vous. Peur de ce qu'il y a dans le conteneur, et de ceux qui l'attendent à Titan s'il rentre les mains vides.",
+   "effects": [
+    {
+     "setFlag": "voronov_lu"
+    }
+   ],
+   "next": "vor_1"
+  },
+  "vor_illisible": {
+   "speaker": "narrateur",
+   "text": "Voronov est un mur. Rien ne passe.",
+   "next": "vor_1"
+  },
+  "vor_calm": {
+   "speaker": "voronov",
+   "text": "Voronov abaisse le canon de quelques degrés. « Une trêve. Pas plus. »",
+   "effects": [
+    {
+     "setFlag": "voronov_calme"
+    }
+   ],
+   "next": "vor_1"
+  },
+  "vor_refuse": {
+   "speaker": "voronov",
+   "text": "« Non. »",
+   "next": "vor_1"
+  },
+  "vor_aveu": {
+   "speaker": "voronov",
+   "text": "« Ordre de Titan. Et parce que si la Mutuelle avait su, elle aurait envoyé tout le monde, et tout le monde aurait respiré ça. » Il détourne les yeux. « L'équipe du Kombinat est partie avec la navette. Moi, je suis resté. Quelqu'un devait garder le refuge en vie. »",
+   "effects": [
+    {
+     "setFlag": "voronov_aveu"
+    }
+   ],
+   "next": "vor_1"
+  },
+  "lina_1": {
+   "speaker": "lina",
+   "text": "Lina est livide. Sa jambe gauche est raide de sang gelé dans la combinaison. Un pistolet à rivets flotte au bout de son poignet.",
+   "choices": [
+    {
+     "text": "Soigner sa jambe (trousse de secours).",
+     "timeCost": 60,
+     "conditions": [
+      {
+       "notFlag": "lina_soignee"
+      }
+     ],
+     "skillCheck": {
+      "skill": "premiers_secours",
+      "difficulty": "normale",
+      "modifiers": [
+       10
+      ]
+     },
+     "success": "lina_soin_ok",
+     "failure": "lina_soin_rate",
+     "criticalFailure": "lina_soin_crit"
+    },
+    {
+     "text": "« Que s'est-il passé ici ? »",
+     "once": true,
+     "timeCost": 30,
+     "next": "lina_recit"
+    },
+    {
+     "text": "« Et toi, que veux-tu faire du conteneur ? »",
+     "once": true,
+     "timeCost": 15,
+     "conditions": [
+      {
+       "flag": "sait_contrat"
+      }
+     ],
+     "next": "lina_veut"
+    },
+    {
+     "text": "Revenir au centre du sas.",
+     "next": "hub"
+    }
+   ]
+  },
+  "lina_soin_ok": {
+   "speaker": "lina",
+   "text": "Vous coupez la combinaison, comprimez, posez un pansement hémostatique. Lina serre les dents. « Merci. Je peux encore t'aider avec le recycleur, si on me laisse faire. »",
+   "effects": [
+    {
+     "setFlag": "lina_soignee"
+    }
+   ],
+   "next": "lina_1"
+  },
+  "lina_soin_rate": {
+   "speaker": "narrateur",
+   "text": "Vos gants sont trop raides, le pansement ne tient pas. Il faudra recommencer.",
+   "next": "lina_1"
+  },
+  "lina_soin_crit": {
+   "speaker": "narrateur",
+   "text": "Le pansement se décolle, le sang perle et gèle aussitôt. Lina pousse un cri qui vous glace plus que le sas.",
+   "effects": [
+    {
+     "loseSangFroid": 1
+    }
+   ],
+   "next": "lina_1"
+  },
+  "lina_recit": {
+   "speaker": "lina",
+   "text": "« Thulé-7 a signé un contrat avec le Kombinat. Arrangé par la Caisse Noire, sans vote de l'assemblée. Des cultures modifiées pour extraire le métal du rocher. Rien de déclaré. »\n\n« Il y a dix-neuf jours, elles sont passées dans les bacs d'algues du recycleur. L'air a tourné. Le greffier a scellé l'habitat, et quelqu'un a coupé la balise. » Elle regarde Voronov. « Je suis arrivée avec la dernière navette de ravitaillement. Je suis restée pour tenir le recycleur. »",
+   "effects": [
+    {
+     "setFlag": "sait_contrat"
+    }
+   ],
+   "next": "lina_1"
+  },
+  "lina_veut": {
+   "speaker": "lina",
+   "text": "« Le ramener à Cérès. Devant l'assemblée. Que les sociétaires sachent ce que la Caisse Noire a vendu en leur nom. » Elle tousse. « Même si ça nous salit tous. »",
+   "next": "lina_1"
+  },
+  "cont_1": {
+   "speaker": "narrateur",
+   "text": "Un cylindre d'acier mat, à double paroi, grand comme un enfant. Un écran de contrôle clignote sous le givre.",
+   "choices": [
+    {
+     "text": "Fouiller l'étiquetage et le journal du conteneur.",
+     "timeCost": 30,
+     "skillCheck": {
+      "skill": "fouille",
+      "difficulty": "normale",
+      "modifiers": []
+     },
+     "success": "cont_ok",
+     "failure": "cont_rate"
+    },
+    {
+     "text": "Revenir au centre du sas.",
+     "next": "hub"
+    }
+   ]
+  },
+  "cont_ok": {
+   "speaker": "narrateur",
+   "text": "Aucun marquage officiel. Le journal parle de « lot B-14, souches de lixiviation, génération 6 », signé d'une clé du Kombinat. Température : −80 °C, stable. Batterie : neuf jours. Une note d'un technicien : « Non viable hors milieu de culture. » Les bacs d'algues du recycleur disent le contraire.",
+   "effects": [
+    {
+     "setFlag": "sait_contenu"
+    }
+   ],
+   "next": "hub"
+  },
+  "cont_rate": {
+   "speaker": "narrateur",
+   "text": "Le givre recouvre tout. Vous n'en tirez rien d'utile, sinon que le conteneur fonctionne encore.",
+   "next": "hub"
+  },
+  "treve_1": {
+   "speaker": "narrateur",
+   "text": "Les armes s'abaissent. Personne ne lâche sa poignée, mais plus personne ne vise personne. Lina désigne du menton le panneau du recycleur.",
+   "effects": [
+    {
+     "setFlag": "treve"
+    }
+   ],
+   "next": "hub"
+  },
+  "repair_start": {
+   "speaker": "narrateur",
+   "text": "Vous ouvrez le panneau. Derrière, des filtres saturés d'une mousse grise, une pompe qui cale, un circuit de régulation qui affole le greffier. Il faut tout remettre en route avant la fin du compte à rebours.",
+   "effects": [
+    {
+     "startRepair": {
+      "goal": 8,
+      "interval": 60,
+      "then": {
+       "done": "repair_done",
+       "abort": "hub"
+      }
+     }
+    }
+   ]
+  },
+  "repair_done": {
+   "speaker": "narrateur",
+   "text": "La pompe repart dans un hoquet. Les ventilateurs soufflent un air presque tiède. Sur l'écran : RECYCLEUR — NOMINAL. Derrière la cloison, quelqu'un frappe trois coups : le refuge a senti la différence.",
+   "effects": [
+    {
+     "setFlag": "support_repare"
+    },
+    {
+     "repairLifeSupport": true
+    }
+   ],
+   "next": "hub"
+  },
+  "combat": {
+   "speaker": "narrateur",
+   "text": "Dans le sas, le bruit des tirs est sourd, presque intime. Kael se plaque contre la paroi, hors de la ligne de feu.",
+   "redirects": [
+    {
+     "conditions": [
+      {
+       "flag": "kael_calme"
+      }
+     ],
+     "next": "combat_allie"
+    }
+   ],
+   "effects": [
+    {
+     "startCombat": {
+      "enemies": [
+       "voronov"
+      ],
+      "allies": [],
+      "then": {
+       "victory": "apres_combat",
+       "defeat": "fin_defaite",
+       "ceasefire": "cessez_le_feu"
+      }
+     }
+    }
+   ]
+  },
+  "combat_allie": {
+   "speaker": "kael",
+   "text": "« Couvrez-vous ! » Kael braque son pistolet sur Voronov.",
+   "effects": [
+    {
+     "startCombat": {
+      "enemies": [
+       "voronov"
+      ],
+      "allies": [
+       "kael"
+      ],
+      "then": {
+       "victory": "apres_combat",
+       "defeat": "fin_defaite",
+       "ceasefire": "cessez_le_feu"
+      }
+     }
+    }
+   ]
+  },
+  "apres_combat": {
+   "speaker": "narrateur",
+   "text": "Voronov ne bouge plus. Sa carabine dérive lentement vers le plafond. Kael rengaine sans un mot. Le recycleur, lui, n'a pas attendu la fin du combat pour continuer de mourir.",
+   "effects": [
+    {
+     "setFlag": "voronov_hors_combat"
+    },
+    {
+     "setFlag": "kael_calme"
+    },
+    {
+     "setFlag": "treve"
+    }
+   ],
+   "next": "hub"
+  },
+  "cessez_le_feu": {
+   "speaker": "narrateur",
+   "text": "Les armes se taisent. On respire fort dans les radios. Voronov, une main crispée sur sa blessure, finit par hocher la tête. Trêve.",
+   "effects": [
+    {
+     "setFlag": "treve"
+    },
+    {
+     "setFlag": "kael_calme"
+    },
+    {
+     "setFlag": "voronov_calme"
+    }
+   ],
+   "next": "hub"
+  },
+  "decision": {
+   "speaker": "narrateur",
+   "text": "Le sas respire. Trois regards se posent sur vous, puis sur le conteneur. Personne ne viendra valider à votre place : la lumière est trop lente.",
+   "choices": [
+    {
+     "text": "Le confier à Lina, pour l'assemblée de Cérès.",
+     "next": "fin_mutuelle"
+    },
+    {
+     "text": "Le remettre à Kael, sous scellé de la Veille.",
+     "next": "fin_veille"
+    },
+    {
+     "text": "Le rendre à Voronov, au Kombinat.",
+     "next": "fin_kombinat",
+     "conditions": [
+      {
+       "notFlag": "voronov_hors_combat"
+      }
+     ]
+    },
+    {
+     "text": "Proposer un compromis : le conteneur reste scellé dans votre navette, et chacun repart avec une copie du journal.",
+     "once": true,
+     "conditions": [
+      {
+       "flag": "sait_contenu"
+      },
+      {
+       "notFlag": "voronov_hors_combat"
+      }
+     ],
+     "skillCheck": {
+      "skill": "negociation",
+      "difficulty": "difficile",
+      "modifiers": []
+     },
+     "success": "fin_compromis",
+     "failure": "decision_rate"
+    },
+    {
+     "text": "Le larguer dans le vide, loin de tous.",
+     "next": "fin_vide"
+    }
+   ]
+  },
+  "decision_rate": {
+   "speaker": "voronov",
+   "text": "« Une copie du journal ? Pour que la Veille et la Mutuelle s'en servent contre nous ? Non. » Kael secoue la tête aussi. Il faut choisir.",
+   "next": "decision"
+  },
+  "fin_mutuelle": {
+   "speaker": "lina",
+   "text": "Lina garde le conteneur contre elle pendant tout le trajet du retour. À Cérès, l'assemblée siège trois jours. La Caisse Noire perd deux de ses grandes familles, le Kombinat dénonce un vol, la Veille ouvre une enquête. Quarante et un habitants de Thulé-7 témoignent. On ne sait pas encore si la vérité les protégera.",
+   "ending": {
+    "id": "fin_mutuelle",
+    "title": "La cargaison froide"
+   }
+  },
+  "fin_veille": {
+   "speaker": "kael",
+   "text": "Kael appose le scellé de la Veille. Le conteneur part pour Shackleton, et Thulé-7 retombe dans le silence des dossiers classés. Les habitants sont saufs. Personne ne saura jamais qui a signé le contrat. Kael vous serre la main, longtemps, comme quelqu'un qui n'est pas sûr d'avoir bien fait.",
+   "ending": {
+    "id": "fin_veille",
+    "title": "Sous scellé"
+   }
+  },
+  "fin_kombinat": {
+   "speaker": "voronov",
+   "text": "Voronov charge le conteneur dans une capsule de fret. Titan aura ses souches, et Thulé-7 un contrat d'eau généreux pour oublier. Lina ne vous adresse plus la parole. Trois semaines plus tard, un virement du Kombinat arrive sur le compte de la Mutuelle. Vous ne saurez jamais si c'était un remerciement ou un prix.",
+   "ending": {
+    "id": "fin_kombinat",
+    "title": "Propriété du Kombinat"
+   }
+  },
+  "fin_compromis": {
+   "speaker": "narrateur",
+   "text": "Le conteneur voyage scellé dans votre navette, sous trois signatures. Chacun repart avec une copie du journal. Rien n'est réglé : tout le monde sait, et tout le monde se tient. C'est peut-être ça, la paix, à onze jours de tout.",
+   "ending": {
+    "id": "fin_compromis",
+    "title": "Trois copies"
+   }
+  },
+  "fin_vide": {
+   "speaker": "narrateur",
+   "text": "Le conteneur s'éloigne lentement du sas, en tournant sur lui-même, et devient une étoile de plus. Dans le vide, rien ne se perd : son orbite sera calculée, notée, et un jour quelqu'un ira le chercher. Mais pas aujourd'hui, et pas vous.",
+   "ending": {
+    "id": "fin_vide",
+    "title": "Le large"
+   }
+  },
+  "fin_defaite": {
+   "speaker": "narrateur",
+   "text": "Le froid vous prend avant la douleur. Votre greffier de combinaison envoie un dernier signal vers la navette, qui le relaiera vers Cérès dans quelques minutes. Thulé-7 retombe dans le silence.",
+   "ending": {
+    "id": "fin_defaite",
+    "title": "Silence radio"
+   }
+  },
+  "fin_silence": {
+   "speaker": "narrateur",
+   "text": "Le recycleur s'arrête. Le froid entre dans le sas, puis dans le refuge. Votre combinaison vous garde en vie, vous seul. Quand la navette de la Veille arrivera, elle trouvera quarante-quatre corps et un conteneur intact.",
+   "ending": {
+    "id": "fin_silence",
+    "title": "Le silence de Thulé-7"
+   }
+  }
+ }
+}

@@ -14,6 +14,20 @@
 
 ## Fil
 
+### 2026-10-24 — [Core Systems, Narrative, UI] → Marc
+
+**La démo est jouable de bout en bout** (version textuelle). Ouvrir le projet dans Godot 4.7.2 et appuyer sur F5. Écran titre, puis 15 minutes dans le sas de Thulé-7 : dialogue avec tests de compétence, réparation du recycleur en test prolongé, combat tactique au tour par tour, 7 fins. Détails : `Data/Dialogues/README.md`.
+
+Pour avancer sans bloquer, j'ai pris des choix provisoires sur les décisions encore ouvertes (faciles à changer dans les JSON) :
+
+- **n° 4, personnage du joueur :** un nouveau pré-tiré, Ezra Tal (Ceinture, sociétaire, sauveteur du vide). Ilka Moravec reste le jeu d'essai des tests.
+- **n° 5, conteneur :** pas la comète Sereguine. Des cultures modifiées de biolixiviation, objet d'un contrat non déclaré entre Thulé-7 et le Kombinat, arrangé par la Caisse Noire. Aucun procédé n'est décrit.
+- **n° 6, Lina :** c'est la Lina de la Bible §8, venue de Cérès pour tenir le recycleur.
+
+Adaptations du LdR ajoutées pour le combat (esquive automatique, couvert −20, cessez-le-feu, blessure mortelle selon la zone…) : `ARCHITECTURE.md` §7.
+
+Équilibrage à juger en jouant : le combat est très mortel (un sauveteur seul gagne environ 1 fois sur 10 en simulation). C'est l'esprit du LdR, mais c'est peut-être trop pour une démo.
+
 ### 2026-10-23 — [Core Systems] → Tous
 
 Modèle de personnage prêt (`Scripts/Core/character_data.gd`, `Scripts/Core/conditions.gd`, `Data/Rules/origins.json`) :

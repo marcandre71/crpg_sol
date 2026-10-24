@@ -29,6 +29,13 @@ const ALL: Array[String] = [
 	UNDER_G, SUIT_BREACHED, EXHAUSTED, SHOCKED,
 ]
 
+## Libellés français (Glossaire v0.2).
+const NAMES := {
+	ANCHORED: "Ancré", FLOATING: "Flottant", FLYING: "En vol", EXPOSED: "Exposé", IRRADIATED: "Irradié",
+	DOOMED: "Condamné", BLEEDING: "Saignement", STUNNED: "Sonné", UNCONSCIOUS: "Inconscient",
+	UNDER_G: "Sous accélération", SUIT_BREACHED: "Combinaison percée", EXHAUSTED: "Épuisé", SHOCKED: "Choqué",
+}
+
 const EXHAUSTED_PENALTY := -20
 const SHOCKED_PENALTY := -20
 ## Choqué : « -20 aux actions sociales et techniques » (LdR §11), lu comme ces domaines de compétences.

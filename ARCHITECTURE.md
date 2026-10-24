@@ -40,6 +40,7 @@ Personnages : le joueur (Sauveteur du vide de la Mutuelle) ; Lina (Mutuelle, ble
   Godot_v4.7.2-stable_win64_console.exe --headless --path . -s res://Tests/run_tests.gd
   ```
   Code de sortie 0 si tout passe, 1 sinon.
+  Test d'intégration de l'interface : `Tests/play_demo.gd` joue des parties complètes dans la vraie scène en cliquant au hasard et échoue si une partie reste bloquée (`-s res://Tests/play_demo.gd -- 40` pour 40 parties).
 - **UI :** rétro-futuriste, terminal, texte ambre ou vert sur fond noir.
 
 ## 4. Arborescence
@@ -49,29 +50,28 @@ Personnages : le joueur (Sauveteur du vide de la Mutuelle) ; Lina (Mutuelle, ble
 ├── project.godot
 ├── README.md · ARCHITECTURE.md · TODO_LIST.md · COMMUNICATIONS.md
 ├── Scenes/
-│   ├── Main.tscn                     # point d'entrée, charge le niveau et l'UI
-│   ├── Levels/Thule7_SasPrincipal.tscn
-│   ├── Actors/Actor.tscn             # pion générique (joueur et PNJ)
-│   └── UI/                           # Terminal, DialogueBox, CombatHUD, CharacterSheet, LifeSupportClock
+│   ├── Main.tscn                     # point d'entrée : écran titre (Scripts/UI/title_screen.gd)
+│   └── UI/Game.tscn                  # écran de jeu de la démo (Scripts/UI/game_screen.gd)
 ├── Scripts/
 │   ├── Core/        # domaine Core Systems : règles pures, sans nœud de scène
 │   │   ├── dice.gd                   # D100, DR/DE, critiques
 │   │   ├── rules.gd                  # tests simples, opposés, prolongés ; modificateurs
 │   │   ├── character_data.gd         # modèle du personnage (cf. Fiche §4)
-│   │   └── conditions.gd
-│   ├── Combat/      # domaine Core Systems : initiative, actions, dégâts, localisation
-│   ├── Environment/ # domaine Core Systems : horloge du support vital, froid, hypoxie, décompression
-│   ├── Dialogue/    # domaine Narrative : lecteur de dialogues JSON, résolution des SkillCheck
+│   │   └── conditions.gd             # conditions du LdR §11 et leurs malus
+│   ├── Combat/combat.gd              # CombatEngine : initiative, actions, esquive, localisation, dégâts, recul, IA
+│   ├── Environment/life_support.gd   # LifeSupportClock : compte à rebours du support vital
+│   ├── Dialogue/dialogue_runner.gd   # DialogueRunner : lecture et validation des dialogues JSON
 │   ├── Autoload/    # singletons (section 5)
-│   └── UI/          # domaine UI : scripts des scènes de Scenes/UI
+│   └── UI/          # terminal_theme.gd (thème ambre), title_screen.gd, game_screen.gd
 ├── Data/
-│   ├── Dialogues/   # un fichier JSON par PNJ ou par scène (section 6.2)
+│   ├── Dialogues/   # un fichier JSON par scène (section 6.2) ; README.md = document de scénario
 │   ├── Characters/  # joueur pré-tiré et PNJ (section 6.1)
-│   ├── Items/       # armes, armures, équipement
-│   └── Rules/       # compétences, tables (localisation), difficultés
-├── Assets/          # Fonts/, Audio/, Sprites/
-└── Tests/           # tests GUT, miroir de Scripts/
+│   ├── Items/items.json              # armes, armures, équipement (valeurs provisoires du LdR)
+│   └── Rules/       # skills.json, origins.json
+└── Tests/           # test_*.gd (lanceur maison), play_demo.gd (parties automatiques), Fixtures/
 ```
+
+Prévu plus tard : `Scenes/Levels/` (sas en 2D ou 3D), `Scenes/Actors/`, `Assets/`. La démo actuelle est entièrement textuelle : l'interface est construite par code dans `game_screen.gd`, sans scènes d'UI séparées.
 
 Chaque dossier appartient à un domaine (voir `TODO_LIST.md`, section « Domaines »). On ne modifie pas un dossier d'un autre domaine sans l'annoncer dans `COMMUNICATIONS.md`.
 
@@ -169,6 +169,14 @@ Les noms de champs reprennent ceux de la Fiche de personnage §4 (codes en angla
 - `opposedBy` (facultatif) : id d'un PNJ et compétence, pour un test opposé (Tromperie contre Psychologie…).
 - `timeCost` (facultatif) : secondes retirées à l'horloge du support vital.
 
+Ajouts implémentés par `Scripts/Dialogue/dialogue_runner.gd` (le commentaire en tête du fichier fait foi) :
+
+- Fichier : `speakers` (id → nom affiché ; `narrateur` = "" pour un texte sans locuteur), `lifeSupportSeconds` (durée de l'horloge).
+- Nœud : `next` (bouton « Continuer »), `effects` (liste appliquée à l'entrée), `redirects` (`[{ "conditions": [...], "next": "id" }]` : le premier qui convient remplace le nœud), `ending` (`{ "id", "title" }` : fin de partie).
+- Choix : `once` (disparaît une fois choisi), `conditions` avec `flag` ou `notFlag`, `effects` avec `always`, `onSuccess`, `onFailure`.
+- Effets : `setFlag`, `clearFlag`, `loseSangFroid`, `repairLifeSupport`, `startRepair` (`{ "goal", "interval", "then": { "done", "abort" } }`), `startCombat` (`{ "enemies", "allies", "then": { "victory", "defeat", "ceasefire" } }`).
+- `DialogueRunner.validate()` refuse un dialogue avec un nœud inconnu, une compétence ou une difficulté inconnue, un test sans branche `success`/`failure`, ou un nœud sans issue ; `DataDB` écarte un tel fichier au démarrage.
+
 ### 6.3 Clés de compétences
 
 Les 38 compétences du LdR §4, en `snake_case` sans accents (`systemes_de_survie`, `manoeuvre_apesanteur`, `bureaucratie_droit`…). La liste fait foi dans `Data/Rules/skills.json` (à créer par Core Systems) ; les autres domaines n'inventent pas de clé.
@@ -187,4 +195,11 @@ Le LdR laisse beaucoup de décisions au meneur. Dans le jeu, chaque décision du
 | Endurance à 0 : test de CON pour rester conscient (LdR §3) | Réussi = Épuisé ; raté = Inconscient (le LdR ne dit pas explicitement l'effet de l'échec). Le jeu ne retire pas Épuisé tout seul : c'est la scène qui décide (le LdR laisse ce choix au meneur). | proposé |
 | Choqué : −20 aux « actions sociales et techniques » (LdR §11) | −20 aux compétences des domaines `relations` et `technique`. | proposé |
 | Gravité natale de la Ceinture (0,03 à 0,5 g) et des habitats tournants (0,3 à 0,7 g) | Valeur par défaut 0,35 g et 0,5 g dans `origins.json` ; la fiche peut donner la sienne. | proposé |
-| Valeurs d'armes provisoires (LdR §7) | Reprises telles quelles dans `Data/Items/`, marquées provisoires. | proposé |
+| Valeurs d'armes provisoires (LdR §7) | Reprises telles quelles dans `Data/Items/`, marquées provisoires. Pistolet à fléchettes : 4 (absent du LdR). | proposé |
+| Réaction (esquiver, parer, se couvrir) sans mécanique précise | Esquive automatique : test opposé Esquive contre l'attaque réussie, une fois par tour. | proposé |
+| Couvert de −10 à −30 | Les caisses du sas donnent −20. | proposé |
+| Fin d'un combat décidée par le meneur | Cessez-le-feu : action du joueur, Commandement Difficile, +20 si chaque adversaire est gravement blessé. Un PNJ désarmé se rend. | proposé |
+| Blessure mortelle : « mort immédiate ou en quelques tours, selon la zone » | Tête ou torse : mort ; membre : inconscient et saignement. | proposé |
+| Recharger : une action ; chargeurs non comptés | Chargeurs de rechange illimités dans la démo. | proposé |
+| Combinaison : −10 en manipulation fine (Fiche, onglet 6) | Appliqué aux tentatives de réparation (compensé par le kit d'outils +10). | proposé |
+| Horloge du support vital | Le joueur a une combinaison pressurisée : ce sont les survivants et le refuge qui meurent à zéro (fin « Le silence de Thulé-7 »). 15 minutes ; réparation : test prolongé de 8 DR, 60 s par tentative. | proposé |

@@ -4,6 +4,8 @@ extends Node
 const SKILLS_PATH := "res://Data/Rules/skills.json"
 const ORIGINS_PATH := "res://Data/Rules/origins.json"
 const CHARACTERS_DIR := "res://Data/Characters"
+const ITEMS_PATH := "res://Data/Items/items.json"
+const DIALOGUES_DIR := "res://Data/Dialogues"
 
 ## Compétences indexées par clé (ex. "systemes_de_survie").
 var skills: Dictionary = {}
@@ -11,12 +13,18 @@ var skills: Dictionary = {}
 var origins: Dictionary = {}
 ## Fiches JSON brutes des personnages, indexées par id ; get_character() en fait un CharacterData.
 var characters: Dictionary = {}
+## Objets (armes, armures, équipement) indexés par clé.
+var items: Dictionary = {}
+## Dialogues indexés par id.
+var dialogues: Dictionary = {}
 
 
 func _ready() -> void:
 	skills = load_skills(SKILLS_PATH)
 	origins = load_keyed(ORIGINS_PATH, "origins")
 	characters = load_characters(CHARACTERS_DIR, skills, origins)
+	items = load_keyed(ITEMS_PATH, "items")
+	dialogues = load_dialogues(DIALOGUES_DIR, skills)
 
 
 static func read_json(path: String) -> Variant:
@@ -64,8 +72,37 @@ static func load_characters(dir: String, skills_db: Dictionary, origins_db: Dict
 	return by_id
 
 
+## Charge et valide chaque dialogue *.json du dossier ; un dialogue invalide est écarté avec ses erreurs.
+static func load_dialogues(dir: String, skills_db: Dictionary) -> Dictionary:
+	var by_id := {}
+	if not DirAccess.dir_exists_absolute(dir):
+		return by_id
+	for file in DirAccess.get_files_at(dir):
+		if not file.ends_with(".json"):
+			continue
+		var path := dir.path_join(file)
+		var data: Variant = read_json(path)
+		if not data is Dictionary:
+			push_error("DataDB : format invalide dans %s" % path)
+			continue
+		var errors := DialogueRunner.validate(data, skills_db)
+		if not errors.is_empty():
+			push_error("DataDB : %s invalide : %s" % [path, ", ".join(errors)])
+			continue
+		by_id[data["id"]] = data
+	return by_id
+
+
 func get_skill(key: String) -> Dictionary:
 	return skills.get(key, {})
+
+
+func get_item(key: String) -> Dictionary:
+	return items.get(key, {})
+
+
+func get_dialogue(id: String) -> Dictionary:
+	return dialogues.get(id, {})
 
 
 func get_origin(key: String) -> Dictionary:

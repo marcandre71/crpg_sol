@@ -24,6 +24,8 @@ var characteristics: Dictionary = {}
 var skills: Dictionary = {}
 var armor := ""
 var weapons: Array[String] = []
+## Équipement compté par clé de Data/Items (ex. { "rustine": 3 }).
+var gear: Dictionary = {}
 
 var endurance := 0
 var sang_froid := 0
@@ -91,6 +93,9 @@ static func from_dict(data: Dictionary, origins_db: Dictionary = {}) -> Characte
 	ch.armor = data.get("armor", "")
 	for w: Variant in data.get("weapons", []):
 		ch.weapons.append(str(w))
+	var carried: Dictionary = data.get("gear", {})
+	for key: String in carried:
+		ch.gear[key] = int(carried[key])
 	ch.endurance = ch.endurance_max() if data.get("endurance") == null else int(data["endurance"])
 	ch.sang_froid = ch.sang_froid_max() if data.get("sangFroid") == null else int(data["sangFroid"])
 	ch.hypoxia = int(data.get("hypoxia", 0))
@@ -107,10 +112,22 @@ func to_dict() -> Dictionary:
 	return {
 		"id": id, "name": name, "faction": faction, "origin": origin,
 		"gravityNative": gravity_native, "characteristics": characteristics.duplicate(),
-		"skills": skills.duplicate(), "armor": armor, "weapons": weapons.duplicate(),
+		"skills": skills.duplicate(), "armor": armor, "weapons": weapons.duplicate(), "gear": gear.duplicate(),
 		"endurance": endurance, "sangFroid": sang_froid, "hypoxia": hypoxia,
 		"position": position, "conditions": conditions.duplicate(), "injuries": injuries.duplicate(true),
 	}
+
+
+func gear_count(key: String) -> int:
+	return gear.get(key, 0)
+
+
+## Consomme un objet ; faux s'il n'en reste plus.
+func use_gear(key: String) -> bool:
+	if gear_count(key) <= 0:
+		return false
+	gear[key] -= 1
+	return true
 
 
 # --- Valeurs dérivées (jamais stockées) -------------------------------------

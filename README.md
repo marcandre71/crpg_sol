@@ -20,6 +20,11 @@ Un huis clos spatial pour valider les mécaniques fondamentales du cRPG.
 *   **Les PNJ :** Trois survivants armés se tiennent en joue en micropesanteur (Lina de la Mutuelle blessée, Kael de la Veille, Voronov du Kombinat). Ils se disputent un mystérieux conteneur cryogénique (échantillons biologiques illégaux).
 *   **Gameplay :** Résolution par le dialogue (arbres de choix liés aux compétences), l'ingénierie (réparer le sas) ou le combat tactique (gestion des Points d'Action, recul des armes en apesanteur).
 
+## ▶️ Tester la démo
+1. Installer **Godot 4.7.2 stable**, importer le dossier du dépôt (`project.godot`), appuyer sur **F5**.
+2. Choisir avec la souris ou les touches **1 à 9**. Les pourcentages sont les chances de réussite.
+3. Tests automatiques : `Godot_v4.7.2-stable_win64_console.exe --headless --path . -s res://Tests/run_tests.gd` (voir `ARCHITECTURE.md` §3).
+
 ## 🛠️ Stack Technique
 *   **Moteur :** Godot Engine (version 4.x).
 *   **Langage :** GDScript (ou C# selon la spécialité de l'agent assigné au système).
